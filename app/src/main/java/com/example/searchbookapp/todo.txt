@@ -1,0 +1,6 @@
+TODO
+* MainActivity 에 ViewModel, ViewModelFactory 객체 생성 후 연결
+* retrofit converter kotlinx.serialization-> gson 으로 수정
+* search fragment layout (editView, recyclerview 생성)
+* viewHolder, Adapter 생성
+* 데이터 통신 테스트
