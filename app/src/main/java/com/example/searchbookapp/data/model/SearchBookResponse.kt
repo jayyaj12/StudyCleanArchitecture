@@ -1,13 +1,11 @@
 package com.example.searchbookapp.data.model
 
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
 
-@Serializable
 data class SearchBookResponse(
-    @SerialName("documents")
+    @SerializedName("documents")
     val documents: List<Document>,
-    @SerialName("meta")
+    @SerializedName("meta")
     val meta: Meta
 )

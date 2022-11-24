@@ -1,11 +1,10 @@
 package com.example.searchbookapp.data.api
 
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import com.example.searchbookapp.util.Constants.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
     private val okHttpClient: OkHttpClient by lazy {
@@ -19,7 +18,8 @@ object RetrofitInstance {
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .addConverterFactory(Json.asConverterFactory("application/json".toMediaTypeOrNull()!!))
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(BASE_URL)
             .client(okHttpClient)
             .build()
     }

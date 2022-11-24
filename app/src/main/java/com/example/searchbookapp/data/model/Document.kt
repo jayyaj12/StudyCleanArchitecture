@@ -1,33 +1,31 @@
 package com.example.searchbookapp.data.model
 
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
 
-@Serializable
 data class Document(
-    @SerialName("authors")
+    @SerializedName("authors")
     val authors: List<String>,
-    @SerialName("contents")
+    @SerializedName("contents")
     val contents: String,
-    @SerialName("datetime")
+    @SerializedName("datetime")
     val datetime: String,
-    @SerialName("isbn")
+    @SerializedName("isbn")
     val isbn: String,
-    @SerialName("price")
+    @SerializedName("price")
     val price: Int,
-    @SerialName("publisher")
+    @SerializedName("publisher")
     val publisher: String,
-    @SerialName("sale_price")
+    @SerializedName("sale_price")
     val salePrice: Int,
-    @SerialName("status")
+    @SerializedName("status")
     val status: String,
-    @SerialName("thumbnail")
+    @SerializedName("thumbnail")
     val thumbnail: String,
-    @SerialName("title")
+    @SerializedName("title")
     val title: String,
-    @SerialName("translators")
+    @SerializedName("translators")
     val translators: List<String>,
-    @SerialName("url")
+    @SerializedName("url")
     val url: String
 )

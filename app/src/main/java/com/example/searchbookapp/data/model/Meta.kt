@@ -1,15 +1,13 @@
 package com.example.searchbookapp.data.model
 
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
 
-@Serializable
 data class Meta(
-    @SerialName("is_end")
+    @SerializedName("is_end")
     val isEnd: Boolean,
-    @SerialName("pageable_count")
+    @SerializedName("pageable_count")
     val pageableCount: Int,
-    @SerialName("total_count")
+    @SerializedName("total_count")
     val totalCount: Int
 )
