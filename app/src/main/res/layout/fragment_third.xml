@@ -6,11 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".ui.view.ThirdFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Third"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add_item_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="아이템 추가"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/delete_item_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="아이템 삭제"
+        app:layout_constraintStart_toEndOf="@+id/add_item_btn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/notice_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_item_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,8 +32,19 @@ class SearchBookAdapter :
         )
     }
 
+    private var onItemClickListener: ((Document) -> Unit)? = null
+    fun setOnItemClickListener(listener: (Document) -> Unit) {
+        onItemClickListener = listener
+    }
+
     override fun onBindViewHolder(holder: SearchBookViewHolder, position: Int) {
         val book = currentList[position]
         holder.bind(book)
+
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.let {
+                it(book)
+            }
+        }
     }
 }

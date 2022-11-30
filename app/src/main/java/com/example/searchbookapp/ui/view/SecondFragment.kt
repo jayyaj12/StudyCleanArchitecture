@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.searchbookapp.data.repository.SearchBookRepository
 import com.example.searchbookapp.data.repository.SearchBookRepositoryImpl
@@ -32,6 +33,7 @@ class SecondFragment() : Fragment() {
         val factory = SearchBookViewModelFactory(repository)
         searchBookViewModel =
             ViewModelProvider(requireActivity(), factory)[SearchBookViewModel::class.java]
+
         return binding.root
     }
 
@@ -73,6 +75,11 @@ class SecondFragment() : Fragment() {
                 )
             )
             adapter = searchBookAdapter
+        }
+
+        searchBookAdapter.setOnItemClickListener {
+            val action = SecondFragmentDirections.actionFragmentSearchToBookUrlFragment(it)
+            findNavController().navigate(action)
         }
 
     }
