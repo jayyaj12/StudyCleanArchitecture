@@ -6,15 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.example.searchbookapp.data.repository.SearchBookRepository
-import com.example.searchbookapp.data.repository.SearchBookRepositoryImpl
 import com.example.searchbookapp.databinding.FragmentSecondBinding
 import com.example.searchbookapp.ui.adapter.SearchBookAdapter
 import com.example.searchbookapp.ui.viewmodel.SearchBookViewModel
-import com.example.searchbookapp.ui.viewmodel.SearchBookViewModelFactory
 
 class SecondFragment() : Fragment() {
     private var _binding: FragmentSecondBinding? = null
@@ -29,16 +25,12 @@ class SecondFragment() : Fragment() {
     ): View? {
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
 
-        val repository: SearchBookRepository = SearchBookRepositoryImpl()
-        val factory = SearchBookViewModelFactory(repository)
-        searchBookViewModel =
-            ViewModelProvider(requireActivity(), factory)[SearchBookViewModel::class.java]
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        searchBookViewModel = (activity as MainActivity).searchBookViewModel
 
         setupBookRecyclerview()
         searchBooks()
@@ -81,7 +73,6 @@ class SecondFragment() : Fragment() {
             val action = SecondFragmentDirections.actionFragmentSearchToBookUrlFragment(it)
             findNavController().navigate(action)
         }
-
     }
 
     override fun onDestroyView() {

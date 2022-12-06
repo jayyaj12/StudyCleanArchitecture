@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.searchbookapp.data.model.Document
 import com.example.searchbookapp.data.model.SearchBookResponse
 import com.example.searchbookapp.data.repository.SearchBookRepository
 import kotlinx.coroutines.Dispatchers
@@ -22,5 +23,16 @@ class SearchBookViewModel(private val searchBookRepository: SearchBookRepository
             }
         }
     }
+
+    fun saveBook(book: Document) = viewModelScope.launch(Dispatchers.IO) {
+        searchBookRepository.insertBook(book)
+    }
+
+    fun deleteBook(book: Document) = viewModelScope.launch(Dispatchers.IO) {
+        searchBookRepository.deleteBook(book)
+    }
+
+    val favoriteBooks: LiveData<List<Document>> = searchBookRepository.selectBook()
+
 
 }

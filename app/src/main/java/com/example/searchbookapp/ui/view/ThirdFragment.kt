@@ -5,23 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.example.searchbookapp.data.model.Notice
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.searchbookapp.databinding.FragmentThirdBinding
-import com.example.searchbookapp.ui.adapter.NoticeAdapter
-import com.example.searchbookapp.ui.viewmodel.NoticeViewModel
-import com.example.searchbookapp.ui.viewmodel.NoticeViewModelFactory
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.example.searchbookapp.ui.adapter.FavoriteAdapter
+import com.example.searchbookapp.ui.viewmodel.SearchBookViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class ThirdFragment() : Fragment() {
     private var _binding: FragmentThirdBinding? = null
     private val binding get() = _binding!!
-    private lateinit var noticeAdapter: NoticeAdapter
-    private lateinit var noticeViewModel: NoticeViewModel
+    private lateinit var favoriteAdapter: FavoriteAdapter
+    private lateinit var searchBookViewModel: SearchBookViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,47 +26,25 @@ class ThirdFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentThirdBinding.inflate(inflater, container, false)
-        val noticeViewModelFactory = NoticeViewModelFactory()
-        noticeViewModel = ViewModelProvider(
-            requireActivity(),
-            noticeViewModelFactory
-        )[NoticeViewModel::class.java]
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        searchBookViewModel = (activity as MainActivity).searchBookViewModel
 
-        setupNoticeRecyclerview()
-        setupNoticeList()
-        noticeAdapter.submitList(noticeViewModel.getNoticeList())
+        setupFavoriteRecyclerview()
+        setupTouchHelper(view)
 
-        binding.addItemBtn.setOnClickListener {
-            CoroutineScope(Dispatchers.Default).launch {
-                withContext(Dispatchers.Default) {
-                    noticeViewModel.addClickAction(Notice("추가된 제목", "추가된 내용"))
-                }
-
-                // ListAdapter 의 submitList 메서드는 기존 list와 새로운 list의 주소값이 달라야만 값 비교가 가능. 따라서 갱신이 불가하다.
-                // .toMutableList() 는 인스턴스를 복사하여 새로운 인스턴스 즉 다른 주소를 갖는 데이터를 생성해주는 메서드이다.
-                noticeAdapter.submitList(noticeViewModel.getNoticeList().toMutableList())
-            }
+        searchBookViewModel.favoriteBooks.observe(viewLifecycleOwner) {
+            favoriteAdapter.submitList(it)
         }
 
-        binding.deleteItemBtn.setOnClickListener {
-            CoroutineScope(Dispatchers.Default).launch {
-                withContext(Dispatchers.Default) {
-                    noticeViewModel.deleteClickAction()
-                }
-
-                noticeAdapter.submitList(noticeViewModel.getNoticeList().toMutableList())
-            }
-        }
     }
 
-    private fun setupNoticeRecyclerview() = with(binding) {
-        noticeAdapter = NoticeAdapter()
-        noticeRv.apply {
+    private fun setupFavoriteRecyclerview() = with(binding) {
+        favoriteAdapter = FavoriteAdapter()
+        favoriteRv.apply {
             hasFixedSize()
             addItemDecoration(
                 DividerItemDecoration(
@@ -77,12 +52,42 @@ class ThirdFragment() : Fragment() {
                     DividerItemDecoration.VERTICAL
                 )
             )
-            adapter = noticeAdapter
+            adapter = favoriteAdapter
+        }
+
+        favoriteAdapter.setOnItemClickListener {
+            val action = ThirdFragmentDirections.actionFragmentFavoriteToBookUrlFragment(it)
+            findNavController().navigate(action)
         }
     }
 
-    private fun setupNoticeList() {
-        noticeViewModel.setupNoticeList()
+    private fun setupTouchHelper(view: View) {
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
+            0, ItemTouchHelper.LEFT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val book = favoriteAdapter.currentList[position]
+                searchBookViewModel.deleteBook(book)
+                Snackbar.make(view, "Book has Delete", Snackbar.LENGTH_SHORT).apply {
+                    setAction("Undo") {
+                        searchBookViewModel.saveBook(book)
+                    }
+                }.show()
+            }
+        }
+
+        ItemTouchHelper(itemTouchHelperCallback).apply {
+            attachToRecyclerView(binding.favoriteRv)
+        }
     }
 
     override fun onDestroyView() {

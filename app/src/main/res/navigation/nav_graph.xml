@@ -30,7 +30,14 @@
         android:id="@+id/fragment_favorite"
         android:name="com.example.searchbookapp.ui.view.ThirdFragment"
         android:label="fragment_third"
-        tools:layout="@layout/fragment_third" />
+        tools:layout="@layout/fragment_third">
+        <action
+            android:id="@+id/action_fragment_favorite_to_bookUrlFragment"
+            app:destination="@id/bookUrlFragment" />
+        <action
+            android:id="@+id/action_fragment_favorite_to_noticeDetailFragment"
+            app:destination="@id/noticeDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/bookUrlFragment"
         android:name="com.example.searchbookapp.ui.view.BookUrlFragment"
@@ -39,5 +46,14 @@
         <argument
             android:name="document"
             app:argType="com.example.searchbookapp.data.model.Document" />
+    </fragment>
+    <fragment
+        android:id="@+id/noticeDetailFragment"
+        android:name="com.example.searchbookapp.ui.view.NoticeDetailFragment"
+        android:label="fragment_notice_detail"
+        tools:layout="@layout/fragment_notice_detail">
+        <argument
+            android:name="notice"
+            app:argType="com.example.searchbookapp.data.model.NoticeModel$NoticeList" />
     </fragment>
 </navigation>
