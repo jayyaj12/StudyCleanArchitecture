@@ -1,7 +1,11 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
     namespace 'com.example.data'
@@ -13,6 +17,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+        buildConfigField "String", "KAKAO_REST_API_KEY", properties['kakao.rest.api.key']
+        buildConfigField "String", "KAKAO_BASE_URL", properties['kakao.base.url']
     }
 
     buildTypes {
@@ -31,6 +37,12 @@ android {
 }
 
 dependencies {
+    implementation project(':domain')
+
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
+
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
     implementation 'androidx.core:core-ktx:1.7.0'
