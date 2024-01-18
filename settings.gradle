@@ -13,4 +13,7 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "SearchBookApp"
-include ':app'
+include ':domain'
+include ':data'
+include ':data'
+include ':presentation'
