@@ -1,5 +1,6 @@
 package com.example.presentation.module
 
+import com.example.data.api.ApiService
 import com.example.presentation.BuildConfig
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -43,4 +44,8 @@ object ApiModule {
             )
             .build()
     }
+
+    @Singleton
+    @Provides
+    fun provideApiService(retrofit: Retrofit) = retrofit.create(ApiService::class.java)
 }
