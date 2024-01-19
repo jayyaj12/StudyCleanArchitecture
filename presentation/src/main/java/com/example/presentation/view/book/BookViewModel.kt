@@ -15,10 +15,10 @@ class BookViewModel @Inject constructor(
 
     fun getSearchBook(
         query: String,
-        sort: String,
-        page: Int,
-        size: Int,
-        target: String,
+        sort: String?,
+        page: Int?,
+        size: Int?,
+        target: String?,
     ) {
         viewModelScope.launch {
             bookUseCase.getSearchBook(GetAuthorization.getAuthorizationToken(),

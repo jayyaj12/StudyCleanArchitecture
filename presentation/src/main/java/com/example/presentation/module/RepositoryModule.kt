@@ -1,7 +1,9 @@
 package com.example.presentation.module
 
 import com.example.data.repository.remote.book.BookRemoteDataSource
+import com.example.data.repository.remote.book.BookRemoteDataSourceImpl
 import com.example.data.repository.remote.book.BookRepositoryImpl
+import com.example.domain.repository.BookRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +16,12 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideBookRepositoryImpl(bookRemoteDataSource: BookRemoteDataSource) =
-        BookRepositoryImpl(bookRemoteDataSource)
+    fun provideBookRepository(
+        bookRemoteDataSourceImpl: BookRemoteDataSourceImpl
+    ) : BookRepository {
+        return BookRepositoryImpl(
+            bookRemoteDataSourceImpl
+        )
+    }
 
 }
