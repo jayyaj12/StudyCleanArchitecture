@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.domain.repository.BookRepository
+import com.example.domain.usecase.BookUseCase
 import com.example.presentation.databinding.FragmentBookBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -14,10 +16,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class BookFragment : Fragment() {
 
-    private var _binding :FragmentBookBinding? = null
+    private var _binding: FragmentBookBinding? = null
     private val binding get() = _binding!!
-    @Inject
-    lateinit var bookViewModel: BookViewModel
+    private val bookViewModel: BookViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,14 +31,12 @@ class BookFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.e("bookViewModasdasddel $bookViewModel")
-
-//        getSearchBook()
+        getSearchBook()
     }
 
     private fun getSearchBook() {
         bookViewModel.getSearchBook(
-            query = "asd",
+            query = "KBS",
             sort = null,
             page = null,
             size = null,
