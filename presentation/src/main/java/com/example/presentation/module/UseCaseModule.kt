@@ -1,7 +1,7 @@
 package com.example.presentation.module
 
 import com.example.domain.repository.BookRepository
-import com.example.domain.usecase.BookUseCase
+import com.example.domain.usecase.SearchBookUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,6 +14,6 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun provideBookUseCase(bookRepository: BookRepository) = BookUseCase(bookRepository)
+    fun provideBookUseCase(bookRepository: BookRepository) = SearchBookUseCase(bookRepository)
 
 }

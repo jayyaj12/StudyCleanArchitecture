@@ -1,9 +1,8 @@
 package com.example.data.repository.remote.book
 
 import com.example.data.api.ApiService
+import com.example.domain.NetworkState
 import com.example.data.model.book.BookEntity
-import com.example.domain.model.Book
-import retrofit2.Response
 import javax.inject.Inject
 
 class BookRemoteDataSourceImpl @Inject constructor(private val apiService: ApiService) :
@@ -16,7 +15,7 @@ class BookRemoteDataSourceImpl @Inject constructor(private val apiService: ApiSe
         page: Int?,
         size: Int?,
         target: String?
-    ): BookEntity.GetSearchBookResponse {
+    ): NetworkState<BookEntity.GetSearchBookResponse> {
         return apiService.getSearchBook(token, query, sort, page, size, target)
     }
 }

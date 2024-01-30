@@ -1,7 +1,7 @@
 package com.example.domain.repository
 
+import com.example.domain.NetworkState
 import com.example.domain.model.Book
-import retrofit2.Response
 
 interface BookRepository {
 
@@ -13,6 +13,6 @@ interface BookRepository {
         page: Int?,
         size: Int?,
         target: String?,
-    ): List<Book>
+    ): Result<List<Book>>
 
 }

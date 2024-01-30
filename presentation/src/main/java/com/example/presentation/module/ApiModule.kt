@@ -1,6 +1,7 @@
 package com.example.presentation.module
 
 import com.example.data.api.ApiService
+import com.example.data.util.CustomCallAdapterFactory
 import com.example.presentation.BuildConfig
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -34,6 +35,7 @@ object ApiModule {
         Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(BuildConfig.KAKAO_BASE_URL)
+            .addCallAdapterFactory(CustomCallAdapterFactory())
             .addConverterFactory(
                 Json {
                     isLenient = true

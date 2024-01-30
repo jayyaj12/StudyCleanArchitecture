@@ -1,8 +1,7 @@
 package com.example.data.api
 
 import com.example.data.model.book.BookEntity
-import com.example.domain.model.Book
-import retrofit2.Response
+import com.example.domain.NetworkState
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
@@ -17,6 +16,6 @@ interface ApiService {
         @Query("page") page: Int?,
         @Query("size") size: Int?,
         @Query("target") target: String?,
-    ): BookEntity.GetSearchBookResponse
+    ): NetworkState<BookEntity.GetSearchBookResponse>
 
 }

@@ -1,6 +1,6 @@
 package com.example.presentation.module
 
-import com.example.domain.usecase.BookUseCase
+import com.example.domain.usecase.SearchBookUseCase
 import com.example.presentation.view.book.BookViewModel
 import dagger.Module
 import dagger.Provides
@@ -14,6 +14,6 @@ object ViewModelModule {
 
     @Singleton
     @Provides
-    fun provideBookViewModel(bookUseCase: BookUseCase) = BookViewModel(bookUseCase)
+    fun provideBookViewModel(searchBookUseCase: SearchBookUseCase) = BookViewModel(searchBookUseCase)
 
 }

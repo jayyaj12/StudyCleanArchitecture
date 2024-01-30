@@ -6,12 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.domain.repository.BookRepository
-import com.example.domain.usecase.BookUseCase
 import com.example.presentation.databinding.FragmentBookBinding
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class BookFragment : Fragment() {

@@ -1,8 +1,7 @@
 package com.example.data.repository.remote.book
 
+import com.example.domain.NetworkState
 import com.example.data.model.book.BookEntity
-import com.example.domain.model.Book
-import retrofit2.Response
 
 interface BookRemoteDataSource {
 
@@ -13,6 +12,6 @@ interface BookRemoteDataSource {
         page: Int?,
         size: Int?,
         target: String?,
-    ): BookEntity.GetSearchBookResponse
+    ): NetworkState<BookEntity.GetSearchBookResponse>
 
 }
