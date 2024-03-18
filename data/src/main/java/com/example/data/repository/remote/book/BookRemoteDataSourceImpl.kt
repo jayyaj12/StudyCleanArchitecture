@@ -15,7 +15,7 @@ class BookRemoteDataSourceImpl @Inject constructor(private val apiService: ApiSe
         page: Int?,
         size: Int?,
         target: String?
-    ): NetworkState<BookEntity.GetSearchBookResponse> {
+    ): NetworkState<BookEntity> {
         return apiService.getSearchBook(token, query, sort, page, size, target)
     }
 }

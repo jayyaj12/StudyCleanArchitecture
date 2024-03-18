@@ -12,6 +12,6 @@ interface BookRemoteDataSource {
         page: Int?,
         size: Int?,
         target: String?,
-    ): NetworkState<BookEntity.GetSearchBookResponse>
+    ): NetworkState<BookEntity>
 
 }

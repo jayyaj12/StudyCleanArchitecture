@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SearchBookApp">
         <activity
-            android:name=".base.BaseActivity"
+            android:name="com.example.sample.ui.movie.list.BookListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

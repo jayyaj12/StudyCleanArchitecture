@@ -1,7 +1,6 @@
 package com.example.domain.repository
 
-import com.example.domain.NetworkState
-import com.example.domain.model.Book
+import com.example.domain.model.UiBookModel
 
 interface BookRepository {
 
@@ -13,6 +12,6 @@ interface BookRepository {
         page: Int?,
         size: Int?,
         target: String?,
-    ): Result<List<Book>>
+    ): Result<List<UiBookModel>>
 
 }

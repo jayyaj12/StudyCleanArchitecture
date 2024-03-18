@@ -2,8 +2,8 @@ package com.example.data.repository.remote.book
 
 import com.example.data.util.RetrofitFailureStateException
 import com.example.domain.NetworkState
-import com.example.data.mapper.mapperToBook
-import com.example.domain.model.Book
+import com.example.data.mapper.toUiBookModel
+import com.example.domain.model.UiBookModel
 import com.example.domain.repository.BookRepository
 import timber.log.Timber
 import javax.inject.Inject
@@ -19,18 +19,16 @@ class BookRepositoryImpl @Inject constructor(
         page: Int?,
         size: Int?,
         target: String?
-    ): Result<List<Book>> {
+    ): Result<List<UiBookModel>> {
 
         when (val searchBookList =
             bookRemoteDataSource.getSearchBook(token, query, sort, page, size, target)) {
-            is NetworkState.Success -> return Result.success(mapperToBook(searchBookList.body))
+            is NetworkState.Success -> return Result.success(searchBookList.body.toUiBookModel())
             is NetworkState.Failure -> return Result.failure(
                 RetrofitFailureStateException(searchBookList.error, searchBookList.code)
             )
-            is NetworkState.NetworkError -> Timber.tag("${this.javaClass.name}_getSearchBook").d(searchBookList.error)
-            is NetworkState.UnknownError -> Timber.tag("${this.javaClass.name}_getSearchBook").d(searchBookList.t)
+            is NetworkState.NetworkError -> return Result.failure(IllegalStateException("NetworkError"))
+            is NetworkState.UnknownError -> return Result.failure(IllegalStateException("UnKnownError"))
         }
-
-        return Result.failure(IllegalStateException("NetworkError or UnKnownError please check timber"))
     }
 }
