@@ -11,11 +11,16 @@ import androidx.appcompat.app.AppCompatDialog
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelLazy
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.presentation.BR
 import com.example.presentation.R
 import com.example.sample.ext.repeatOnStarted
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.lang.reflect.ParameterizedType
 
 abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
@@ -47,7 +52,9 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Timber.e("onCreate BaseActivity")
         setupUi()
+        setupObserve()
         setupObserver()
     }
 
@@ -61,7 +68,9 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
 
     private fun setupObserve() {
         repeatOnStarted {
-            viewModel.baseEventFlow.collect { handleEvent(it) }
+            viewModel.baseEventFlow.collect {
+                handleEvent(it)
+            }
         }
     }
 

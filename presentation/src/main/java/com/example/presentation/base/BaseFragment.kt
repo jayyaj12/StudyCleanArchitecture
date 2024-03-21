@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelLazy
 import com.example.presentation.BR
 import com.example.presentation.R
+import com.example.sample.ext.repeatOnStarted
+import timber.log.Timber
 import java.lang.reflect.ParameterizedType
 
 abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
@@ -25,9 +27,8 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     protected val binding: B
         get() = _binding!!
 
-    private val viewModelClass = ((javaClass.genericSuperclass as ParameterizedType?)
-        ?.actualTypeArguments
-        ?.get(1) as Class<VM>).kotlin
+    private val viewModelClass =
+        ((javaClass.genericSuperclass as ParameterizedType?)?.actualTypeArguments?.get(1) as Class<VM>).kotlin
 
     protected open val viewModel by ViewModelLazy(
         viewModelClass,
@@ -59,21 +60,27 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
         super.onViewCreated(view, savedInstanceState)
 
         setupUi()
+        setupObserve()
+    }
+
+
+    private fun setupObserve() {
+        repeatOnStarted {
+            viewModel.baseEventFlow.collect {
+                handleEvent(it)
+            }
+        }
     }
 
     private fun handleEvent(event: BaseViewModel.Event) {
-        when(event) {
+        when (event) {
             is BaseViewModel.Event.ShowToast -> Toast.makeText(
-                requireContext(),
-                event.message,
-                Toast.LENGTH_LONG
-            )
+                requireContext(), event.message, Toast.LENGTH_LONG
+            ).show()
 
             is BaseViewModel.Event.ShowToastRes -> Toast.makeText(
-                requireContext(),
-                getString(event.message),
-                Toast.LENGTH_LONG
-            )
+                requireContext(), getString(event.message), Toast.LENGTH_LONG
+            ).show()
 
             is BaseViewModel.Event.ShowLoading -> loadingDialog.show()
             is BaseViewModel.Event.HideLoading -> loadingDialog.dismiss()

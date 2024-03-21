@@ -28,7 +28,7 @@ class BookListViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             searchBookUseCase(
-                GetAuthorization.getAuthorizationToken(),
+                "",
                 query,
                 sort,
                 page,
@@ -37,7 +37,7 @@ class BookListViewModel @Inject constructor(
             ).onSuccess {
                 _getBookList.postValue(it)
             }.onFailure {
-                Timber.e("message: ${it.message}, code: ${it.cause}")
+                baseEvent(Event.ShowToast(it.message.toString()))
             }
         }
 

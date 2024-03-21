@@ -1,8 +1,6 @@
 
 x
 Happ/src/main/java/com/example/searchbookapp/data/api/RetrofitInstance.kt,5\f\5ff21e64a200f644e6e40a63624a0336489e3218
-Q
-!data/src/main/AndroidManifest.xml,f\a\fa20ad08e770fe0392ec3df5be8c6bde6c35d607
 S
 #domain/src/main/AndroidManifest.xml,4\6\46c5973a8a062650780ae254450fba029a8b5598
 I
@@ -11,14 +9,10 @@ I
 domain/consumer-rules.pro,9\8\98859257350b20efa21ddb009275ba430e08f47d
 e
 5data/src/main/java/com/example/data/api/ApiService.kt,3\0\309781bfa846167899f9bd01439198b88813edf0
-e
-5domain/src/main/java/com/example/domain/model/Book.kt,9\8\98583089d1abded9e3d0e2748e6916f4d87d78c1
 l
 <data/src/main/java/com/example/data/model/book/BookEntity.kt,4\e\4e8587b06375ac0030b5b8cf7cfb1384c2198477
 ‚
 Rdata/src/main/java/com/example/data/repository/remote/book/BookRemoteDataSource.kt,8\4\8403d67502a6d8757c238ed2091eec35539483c4
-†
-Vdata/src/main/java/com/example/data/repository/remote/book/BookRemoteDataSourceImpl.kt,1\1\116592c31802068f546ce8a84f4cee87f8078850
 u
 Edata/src/androidTest/java/com/example/data/ExampleInstrumentedTest.kt,1\c\1cbc835f0a19c2dc1946c18ca3d386d24fcd4942
 f
@@ -27,5 +21,7 @@ f
 Lpresentation/src/main/java/com/example/presentation/util/GetAuthorization.kt,7\d\7d9bab72af1c707ec28864c004571597eb4de717
 w
 Gpresentation/src/main/java/com/example/presentation/module/ApiModule.kt,f\f\ff8ce6a6e9983eab03a5a3583afbc3b069e13383
-}
-Mpresentation/src/main/java/com/example/presentation/view/book/BookFragment.kt,4\9\49580a9fdf5d3a031af3d00b07298d4c430d2622
+Š
+Zpresentation/src/main/java/com/example/presentation/view/book/detail/BookDetailFragment.kt,c\4\c42e002256fcb51e0f8da466334bfc55aaa2fadf
+‹
+[presentation/src/main/java/com/example/presentation/view/book/detail/BookDetailViewModel.kt,9\8\98fde71d8fa37220653e5c398638aa4ca847c218
